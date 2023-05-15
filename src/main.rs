@@ -64,11 +64,11 @@ fn main() {
 
         while let Some(msg_opt) = strm.next().await {
             if let Some(msg) = msg_opt {
-                println!("{}", msg.payload_str().to_lowercase());
+                dbg!("{}", msg.payload_str().to_lowercase());
                 let mut msg = msg.payload_str().to_lowercase();
                 msg.push('}');
                 if let Ok(cmd) = serde_json::from_str::<Doorbell>(&msg) {
-                    println!("Doorbell: {}", cmd.rfreceived.data);
+                    dbg!("Doorbell: {}", &cmd.rfreceived.data);
                     if cmd.rfreceived.data == config.trigger {
                         Notification::new()
                             .summary("Doorbell")
